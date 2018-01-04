@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+struct Node
+{
+    int val;
+    struct Node* next;
+};
+
+
+void push(struct Node** head_ref, int new_val)
+{
+    struct Node* new_node =
+            (struct Node*) malloc(sizeof(struct Node));
+    new_node->val  = new_val;
+    new_node->next = (*head_ref);
+    (*head_ref)    = new_node;
+}
+
+
+int GetNth(struct Node* head, int index)
+{
+    struct Node* current = head;
+    int count = 0; /* the index of the node we're currently
+                  looking at */
+    while (current != NULL)
+    {
+       if (count == index)
+          return(current->val);
+       count++;
+       current = current->next;
+    }
+}
+
+
+int main()
+{
+    struct Node* head = NULL;
+
+    /*construct below list
+     2->15->41->24->1  */
+    push(&head, 1);
+    push(&head, 24);
+    push(&head, 41);
+    push(&head, 15);
+    push(&head, 2);
+
+    printf("Element at index 2 is %d", GetNth(head, 2));
+
+}

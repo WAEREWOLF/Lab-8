@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Node
+{
+    int val;
+    struct Node* next;
+};
+
+
+void push(struct Node** head_ref, int new_val)
+{
+
+    struct Node* new_node =
+            (struct Node*) malloc(sizeof(struct Node));
+
+
+    new_node->val  = new_val;
+    new_node->next = (*head_ref);
+    (*head_ref)    = new_node;
+}
+
+/* Counts the no. of occurences of a node
+   (search_for) in a linked list (head)*/
+int count(struct Node* head, int search)
+{
+    struct Node* current = head;
+    int count = 0;
+    while (current != NULL)
+    {
+        if (current->val == search)
+           count++;
+        current = current->next;
+    }
+    return count;
+}
+
+
+int main()
+{
+
+    struct Node* head = NULL;
+
+
+    push(&head, 1);
+    push(&head, 2);
+    push(&head, 3);
+    push(&head, 2);
+    push(&head, 4);
+
+    printf("count of 2 is %d", count(head, 2));
+    return 0;
+}

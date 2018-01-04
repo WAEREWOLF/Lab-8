@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+struct Node
+{
+    int data;
+    struct Node* next;
+};
+
+
+void SortedInsert(struct Node** head_ref, struct Node* new_node)
+{
+    struct Node* current;
+    if (*head_ref == NULL || (*head_ref)->data >= new_node->data)
+    {
+        new_node->next = *head_ref;
+        *head_ref = new_node;
+    }
+    else
+    {
+
+        current = *head_ref;
+        while (current->next!=NULL &&
+               current->next->data < new_node->data)
+        {
+            current = current->next;
+        }
+        new_node->next = current->next;
+        current->next = new_node;
+    }
+}
+
+
+
+void printList(struct Node *n)
+{
+       while(n != NULL)
+    {
+        printf("%d  ", n->data);
+        n = n->next;
+    }
+}
+
+void push(struct Node** head_ref, int new_data)
+{
+
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+    new_node->data  = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref)    = new_node;
+}
+
+
+int main()
+{
+
+   struct Node* head = NULL;
+    push(&head, 10);
+
+    push(&head, 7);
+
+    push(&head, 3);
+
+    push(&head, 2);
+
+    push(&head, 1);
+
+    SortedInsert(&head, 9);
+
+    printf("\n Created Linked List\n");
+    printList(head);
+
+    return 0;
+}
